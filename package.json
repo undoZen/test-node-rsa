@@ -1,0 +1,40 @@
+{
+  "main": "lib/index.js",
+  "scripts": {
+    "precommit": "npm test",
+    "prepush": "npm test",
+    "start": "NODE_ENV=production DEBUG=cc:os:* PORT=4100 pm2 start . -i max --name 'os'",
+    "build": "lsc -o lib/ -cb src/",
+    "build-test": "lsc -o test/ -cb test-src/",
+    "build-n-run": "npm run-script build && node .",
+    "build-w": "nodemon -w src/ -w node_modules/ -e js,json,ls -x 'npm run-script build'",
+    "start-w": "nodemon -w src/ -w node_modules/ -e js,json,ls -x 'npm run-script build-n-run'",
+    "dev": "npm run start-w",
+    "test-prepare": "jsonlint package.json && npm run-script build && npm run build-test",
+    "test-w": "nodemon -w src/ -w config/ -w test/ -w node_modules/ -e js,json,ls -x 'npm run-script test'",
+    "test": "npm run test-prepare && NODE_ENV=test mocha",
+    "test-ci": "npm run test-prepare && NODE_ENV=test ./node_modules/.bin/mocha --reporter xunit-file"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@114.215.107.120:7999/~undozen/oauth-server.git"
+  },
+  "keywords": [
+    "oauth",
+    "server"
+  ],
+  "author": "undoZen <undozen@creditcloud.com>",
+  "license": "private",
+  "dependencies": {
+    "node-rsa": "^0.1.53",
+    "nodemon": "^1.2.1",
+    "prelude-ls": "latest"
+  },
+  "devDependencies": {
+    "LiveScript": "latest",
+    "husky": "latest",
+    "jsonlint": "latest",
+    "mocha": "latest",
+    "supertest": "latest"
+  }
+}
