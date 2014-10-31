@@ -1,3 +1,5 @@
+# http://blog.shiqichan.com/encrypt-and-decrypt-string-with-rsa/
+
 NodeRSA = require \node-rsa
 require! {fs, path}
 key = new NodeRSA b: 512
